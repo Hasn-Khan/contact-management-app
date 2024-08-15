@@ -1,26 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ContactForm from '../src/features/contacts/ContactForm';
+import ContactList from '../src/features/contacts/ContactList';
+import ContactDetails from '../src/features/contacts/ContactDetails';
+import Dashboard from './features/dashboard/Dashboard';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="container mx-auto p-4">
+        <Routes>
+          <Route path="/" element={<ContactList />} />
+          <Route path="/contacts/new" element={<ContactForm onSave={() => window.history.back()} />} />
+          <Route path="/contacts/:id" element={<ContactDetails />} />
+          <Route path="/contacts/:id/edit" element={<ContactForm onSave={() => window.history.back()} />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
